@@ -1,0 +1,9 @@
+<% for (const service of Object.keys(api)) { %>
+  declare namespace <%= apiName %>.<%= service %> {
+  <% for (const handler of api[service]) {
+    for (const handlerType of Object.keys(handler.response)) { %>
+    interface <%= handlerType %> {
+      <%- include('fields', { fields: handler.response[handlerType] }); %>}
+  <% } } %>
+  }
+<% } %>

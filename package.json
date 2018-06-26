@@ -1,0 +1,29 @@
+{
+  "name": "apidoc2dts",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "./node_modules/.bin/tsc"
+  },
+  "dependencies": {
+    "ejs": "2.6.1",
+    "lodash.camelcase": "4.3.0",
+    "lodash.groupby": "4.6.0",
+    "lodash.merge": "4.6.1",
+    "lodash.set": "4.3.2",
+    "lodash.upperfirst": "4.3.1"
+  },
+  "devDependencies": {
+    "@types/ejs": "2.6.0",
+    "@types/lodash.camelcase": "4.3.3",
+    "@types/lodash.groupby": "4.6.3",
+    "@types/lodash.merge": "4.6.3",
+    "@types/lodash.set": "4.3.3",
+    "@types/lodash.upperfirst": "4.3.3",
+    "@types/node": "8.0.46",
+    "tslint": "5.10.0",
+    "tslint-config-airbnb": "5.9.2",
+    "typescript": "2.9.1",
+    "typescript-formatter": "7.2.2"
+  }
+}

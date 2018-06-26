@@ -1,0 +1,17 @@
+<% for (const fieldName of Object.keys(fields)) {
+  const fieldSpec = fields[fieldName];
+  const type = fieldSpec.type
+    ? ('String' === fieldSpec.type || 'Number' === fieldSpec.type || 'Boolean' === fieldSpec.type || 'Object' === fieldSpec.type
+      ? fieldSpec.type.toLowerCase()
+      : fieldSpec.type)
+    : 'any';
+  %><%= fieldName %><%= fieldSpec.optional ? '?' : '' %>: <% if (fieldSpec.allowedValues) {
+    if ('String' === fieldSpec.type) {
+      %>'<%- fieldSpec.allowedValues.join(`' | '`) %>'<%
+    } else {
+      %><%= fieldSpec.allowedValues.join(' | ') %><%
+    }
+  } else {
+    %><%= type %><%
+  } %>;
+<% } %>
