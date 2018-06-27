@@ -68,20 +68,25 @@ class Apidoc2DTS {
     let types: { [type: string]: { [field: string] : ApiField } } = { [topLevelTypeName]: {} };
 
     for (const fieldName of Object.keys(fields)) {
-      const field = fields[fieldName];
+      const field = fields[fieldName] as ResponseField;
       if ('Link' === fieldName || 'spec' === fieldName) {
         continue;
       }
 
-      if (Object.keys(field).length > 1) {
+      if (!field.spec) {
+        /* tslint:disable-next-line:max-line-length */
+        throw new Error(`${fieldName} of ${topLevelTypeName} have no APIDOC definition, content is ${util.format(field)}`);
+      }
+
+      if (Object.keys(field).length > 1) {  // have 'spec' attribute and some children
         const typeName = `${topLevelTypeName}_${lodashUpperFirst(fieldName)}`;
         types[topLevelTypeName][fieldName] = {
-          ...(field as ResponseField).spec,
-          type: 'Object[]' === (field as ResponseField).spec.type ? `${typeName}[]` : typeName,
+          ...field.spec,
+          type: 'Object[]' === field.spec.type ? `${typeName}[]` : typeName,
         };
-        types = lodashMerge(types, Apidoc2DTS.types(field as ResponseFields, typeName));
+        types = lodashMerge(types, Apidoc2DTS.types(field as any, typeName));
       } else {
-        types[topLevelTypeName][fieldName] = (field as ResponseField).spec;
+        types[topLevelTypeName][fieldName] = field.spec;
       }
     }
 
