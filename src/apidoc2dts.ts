@@ -99,7 +99,6 @@ class Apidoc2DTS {
     const apiProjectFile = path.join(apidocFolder, 'api_project.json');
 
     const apiProject: { name: string } = JSON.parse(await fsReadFile(apiProjectFile, 'UTF-8'));
-    const apiName = lodashUpperFirst(lodashCamelCase(apiProject.name));
 
     const api: ApiHandler[] = JSON.parse(await fsReadFile(apiDataFile, 'UTF-8'));
     const apiResponses = api.filter(handler => 'GET' === handler.type)
@@ -120,7 +119,10 @@ class Apidoc2DTS {
     // console.log(JSON.stringify(apiServices));
 
     console.log(
-      await (ejs.renderFile as any)('./views/dts.ejs', { apiName, api: apiServices } as ejs.Data),
+      await (ejs.renderFile as any)(
+        './views/dts.ejs',
+        { moduleName: apiProject.name, api: apiServices } as ejs.Data,
+      ),
     );
 
   }
