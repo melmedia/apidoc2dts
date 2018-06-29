@@ -7,7 +7,6 @@ import lodashSet = require('lodash.set');
 /* tslint:disable-next-line:import-name */
 import lodashGroupBy = require('lodash.groupby');
 /* tslint:disable-next-line:import-name */
-import lodashCamelCase = require('lodash.camelcase');
 /* tslint:disable-next-line:import-name */
 import lodashUpperFirst = require('lodash.upperfirst');
 import lodashMerge = require('lodash.merge');

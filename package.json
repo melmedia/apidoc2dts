@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "ejs": "2.6.1",
-    "lodash.camelcase": "4.3.0",
     "lodash.groupby": "4.6.0",
     "lodash.merge": "4.6.1",
     "lodash.set": "4.3.2",
@@ -15,7 +14,6 @@
   },
   "devDependencies": {
     "@types/ejs": "2.6.0",
-    "@types/lodash.camelcase": "4.3.3",
     "@types/lodash.groupby": "4.6.3",
     "@types/lodash.merge": "4.6.3",
     "@types/lodash.set": "4.3.3",
