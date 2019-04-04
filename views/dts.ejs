@@ -3,10 +3,19 @@ declare module '<%= moduleName %>-types' {
 <% for (const service of Object.keys(api)) { %>
   namespace <%= service %> {
   <% for (const handler of api[service]) {
-    for (const handlerType of Object.keys(handler.response)) { %>
+    if (handler.request) {
+      for (const handlerType of Object.keys(handler.request)) { %>
+    interface <%= handlerType %> {
+      <%- include('fields', { fields: handler.request[handlerType] }); %>}
+  <% }
+    }
+    if (handler.response) {
+      for (const handlerType of Object.keys(handler.response)) { %>
     interface <%= handlerType %> {
       <%- include('fields', { fields: handler.response[handlerType] }); %>}
-  <% } } %>
+  <% }
+    }
+  } %>
   }
 <% } %>
 

@@ -7,7 +7,6 @@ import lodashSet = require('lodash.set');
 /* tslint:disable-next-line:import-name */
 import lodashGroupBy = require('lodash.groupby');
 /* tslint:disable-next-line:import-name */
-/* tslint:disable-next-line:import-name */
 import lodashUpperFirst = require('lodash.upperfirst');
 import lodashMerge = require('lodash.merge');
 
@@ -23,8 +22,20 @@ interface ApiHandler {
   type: string;
   name: string;
   group: string;
+  parameter: {
+    fields: {
+      Parameter: ApiField[];
+      'Route params': ApiField[];
+      [group: string]: ApiField[];
+    },
+  };
   success: {
     fields: {
+      'Success 200': ApiField[];
+      201: ApiField[];
+      204: ApiField[];
+      400: ApiField[];
+      403: ApiField[];
       [group: string]: ApiField[];
     };
   };
@@ -64,7 +75,7 @@ class Apidoc2DTS {
   }
 
   protected static types(fields: ResponseFields, topLevelTypeName: string) {
-    let types: { [type: string]: { [field: string] : ApiField } } = { [topLevelTypeName]: {} };
+    let types: { [type: string]: { [field: string]: ApiField } } = { [topLevelTypeName]: {} };
 
     for (const fieldName of Object.keys(fields)) {
       const field = fields[fieldName] as ResponseField;
@@ -100,30 +111,54 @@ class Apidoc2DTS {
     const apiProject: { name: string } = JSON.parse(await fsReadFile(apiProjectFile, 'UTF-8'));
 
     const api: ApiHandler[] = JSON.parse(await fsReadFile(apiDataFile, 'UTF-8'));
-    const apiResponses = api.filter(handler => 'GET' === handler.type)
-      .filter(handler => handler.success.fields['Success 200'])
-      .map(handler =>
-        ({
+    const apiRenderData = api.filter(handler =>
+        this.isRenderRequest(handler) || this.isRenderResponse(handler))
+      .map((handler) => {
+        const request = this.isRenderRequest(handler)
+          ? Apidoc2DTS.types(
+              Apidoc2DTS.nestedFields(handler.parameter.fields.Parameter),
+              `${handler.name}Params`,
+            )
+          : undefined;
+        const response = this.isRenderResponse(handler)
+          ? Apidoc2DTS.types(
+              Apidoc2DTS.nestedFields(handler.success.fields['Success 200']),
+              handler.name,
+            )
+          : undefined;
+        return {
           ...handler,
-          response: Apidoc2DTS.types(
-            Apidoc2DTS.nestedFields(handler.success.fields['Success 200']),
-            handler.name,
-          ),
-        }));
+          request,
+          response,
+        };
+      });
 
-    const apiServices = lodashGroupBy(
-      apiResponses,
+    const apiRenderDataServices = lodashGroupBy(
+      apiRenderData,
       handler => handler.group.split('_').join('.'),
     );
-    // console.log(JSON.stringify(apiServices));
+    // console.log(JSON.stringify(apiRenderDataServices));
 
     console.log(
       await (ejs.renderFile as any)(
         './views/dts.ejs',
-        { moduleName: apiProject.name, api: apiServices } as ejs.Data,
+        { moduleName: apiProject.name, api: apiRenderDataServices } as ejs.Data,
       ),
     );
 
+  }
+
+  protected isRenderRequest(handler: ApiHandler) {
+    return handler.parameter
+      && handler.parameter.fields
+      && handler.parameter.fields.Parameter;
+  }
+
+  protected isRenderResponse(handler: ApiHandler) {
+    return 'GET' === handler.type
+      && handler.success
+      && handler.success.fields
+      && handler.success.fields['Success 200'];
   }
 
 }
