@@ -1,6 +1,10 @@
 {
   "name": "apidoc2dts",
   "description": "APIDOC to Typescript Definition file convertor",
+  "keywords": [
+    "apidoc",
+    "typescript"
+  ],
   "author": "Mikhail Elfimov (https://github.com/melfa)",
   "version": "1.0.2",
   "license": "MIT",
