@@ -5,7 +5,7 @@
       ? fieldSpec.type.toLowerCase()
       : fieldSpec.type)
     : 'any';
-  %><%= fieldName %><%= fieldSpec.optional ? '?' : '' %>: <% if (fieldSpec.allowedValues) {
+  %>      <%= fieldName %><%= fieldSpec.optional ? '?' : '' %>: <% if (fieldSpec.allowedValues) {
     if ('String' === fieldSpec.type) {
       %>'<%- fieldSpec.allowedValues.join(`' | '`) %>'<%
     } else {

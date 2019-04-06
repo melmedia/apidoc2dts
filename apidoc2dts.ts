@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import 'source-map-support/register';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -137,11 +139,10 @@ class Apidoc2DTS {
       apiRenderData,
       handler => handler.group.split('_').join('.'),
     );
-    // console.log(JSON.stringify(apiRenderDataServices));
 
     console.log(
       await (ejs.renderFile as any)(
-        './views/dts.ejs',
+        path.join(__dirname, 'views/dts.ejs'),
         { moduleName: apiProject.name, api: apiRenderDataServices } as ejs.Data,
       ),
     );
@@ -165,6 +166,6 @@ class Apidoc2DTS {
 
 const apidocFolder = process.argv[2];
 if (!apidocFolder) {
-  throw new Error('Must specify apidoc folder: node dist/apidoc2dts.js ../apidoc/');
+  throw new Error('Must specify apidoc folder: node apidoc2dts.js ../apidoc/');
 }
 new Apidoc2DTS().apidoc2dts(apidocFolder);

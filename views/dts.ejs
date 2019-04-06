@@ -6,13 +6,13 @@ declare module '<%= moduleName %>-types' {
     if (handler.request) {
       for (const handlerType of Object.keys(handler.request)) { %>
     interface <%= handlerType %> {
-      <%- include('fields', { fields: handler.request[handlerType] }); %>}
+<%- include('fields', { fields: handler.request[handlerType] }); %>    }
   <% }
     }
     if (handler.response) {
       for (const handlerType of Object.keys(handler.response)) { %>
     interface <%= handlerType %> {
-      <%- include('fields', { fields: handler.response[handlerType] }); %>}
+<%- include('fields', { fields: handler.response[handlerType] }); %>    }
   <% }
     }
   } %>
