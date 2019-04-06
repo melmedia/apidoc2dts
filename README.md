@@ -13,7 +13,7 @@ Generate APIDOC and make sure `api_data.json`, `api_project.json` exists in PATH
 
 Usage:
 ```
-./node_modules/.bin/apidoc2dts PATH_TO_APIDOC/ | ./node_modules/.bin/tsfmt --stdin > ~/TARGET_FOLDER/index.d.ts
+./node_modules/.bin/apidoc2dts PATH_TO_APIDOC > TARGET_FOLDER/index.d.ts
 ```
 
 How to use generated types:
@@ -30,7 +30,7 @@ Typescript interfaces generated only for:
 You can optionally use [tsfmt](https://github.com/vvakame/typescript-formatter)
 to format typescript definition file using your project style guide:
 ```
-./node_modules/.bin/apidoc2dts PATH_TO_APIDOC/ | ./node_modules/.bin/tsfmt --stdin > ~/TARGET_FOLDER/index.d.ts
+./node_modules/.bin/apidoc2dts PATH_TO_APIDOC/ | ./node_modules/.bin/tsfmt --stdin > TARGET_FOLDER/index.d.ts
 ```
 
 
