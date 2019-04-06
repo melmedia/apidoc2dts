@@ -1,5 +1,6 @@
 {
   "name": "apidoc2dts",
+  "description": "APIDOC to Typescript Definition file convertor",
   "author": "Mikhail Elfimov (https://github.com/melfa)",
   "version": "1.0.0",
   "license": "MIT",
@@ -20,6 +21,8 @@
     "apidoc2dts.js",
     "apidoc2dts.js.map",
     "apidoc2dts.ts",
+    "views/dts.ejs",
+    "views/fields.ejs",
     "LICENSE"
   ],
   "dependencies": {
