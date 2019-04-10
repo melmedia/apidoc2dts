@@ -122,9 +122,13 @@ class Apidoc2DTS {
               `${handler.name}Params`,
             )
           : undefined;
-        const response = this.isRenderResponse(handler)
+        const successFields = this.isRenderResponse(handler)
+          ? (handler.success.fields['Success 200']
+            || handler.success.fields[Object.keys(handler.success.fields)[0]])
+          : undefined;
+        const response = successFields
           ? Apidoc2DTS.types(
-              Apidoc2DTS.nestedFields(handler.success.fields['Success 200']),
+              Apidoc2DTS.nestedFields(successFields),
               handler.name,
             )
           : undefined;
@@ -156,10 +160,9 @@ class Apidoc2DTS {
   }
 
   protected isRenderResponse(handler: ApiHandler) {
-    return 'GET' === handler.type
-      && handler.success
+    return handler.success
       && handler.success.fields
-      && handler.success.fields['Success 200'];
+      && Object.keys(handler.success.fields).length;
   }
 
 }

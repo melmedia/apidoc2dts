@@ -23,15 +23,18 @@ import { YourApidocGroupNamespace } from 'YOUR_PACKAGE_NAME-types';
 Where `YOUR_PACKAGE_NAME` come from apidoc.json `name` field,
 `YourApidocGroupNamespace` come from @apiGroup tags.
 
-Typescript interfaces generated only for:
-* `Parameter` @apiParam group (this is default group)
-* `@api {GET}` method and `Success 200` @apiSuccess group (this is default group)
-
 You can optionally use [tsfmt](https://github.com/vvakame/typescript-formatter)
 to format typescript definition file using your project style guide:
 ```
 ./node_modules/.bin/apidoc2dts PATH_TO_APIDOC/ | ./node_modules/.bin/tsfmt --stdin > TARGET_FOLDER/index.d.ts
 ```
+
+
+## Limitations
+
+Typescript interfaces generated only for:
+* `Parameter` @apiParam group (this is default group)
+* One @apiSuccess group, `Success 200` (this is default group) or any other first defined
 
 
 ## Example
