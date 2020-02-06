@@ -7,7 +7,7 @@
     : 'any';
   %>      <%= fieldName %><%= fieldSpec.optional ? '?' : '' %>: <% if (fieldSpec.allowedValues) {
     if ('String' === fieldSpec.type) {
-      %>'<%- fieldSpec.allowedValues.join(`' | '`) %>'<%
+      %><%- fieldSpec.allowedValues.map(allowedValue => allowedValue.startsWith('"') && allowedValue.endsWith('"') ? allowedValue : (allowedValue.startsWith("'") && allowedValue.endsWith("'") ? allowedValue : `'${allowedValue}'`)).join(' | ') %><%
     } else {
       %><%= fieldSpec.allowedValues.join(' | ') %><%
     }
