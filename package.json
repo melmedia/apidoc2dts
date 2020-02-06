@@ -30,23 +30,23 @@
     "LICENSE"
   ],
   "dependencies": {
-    "ejs": "2.6.1",
+    "ejs": "3.0.1",
     "lodash.groupby": "4.6.0",
-    "lodash.merge": "4.6.1",
+    "lodash.merge": "4.6.2",
     "lodash.set": "4.3.2",
     "lodash.upperfirst": "4.3.1",
-    "source-map-support": "0.5.6",
+    "source-map-support": "0.5.16",
     "typescript-formatter": "7.2.2"
   },
   "devDependencies": {
-    "@types/ejs": "2.6.0",
-    "@types/lodash.groupby": "4.6.3",
-    "@types/lodash.merge": "4.6.3",
-    "@types/lodash.set": "4.3.3",
-    "@types/lodash.upperfirst": "4.3.3",
-    "@types/node": "8.0.46",
-    "tslint": "5.10.0",
-    "tslint-config-airbnb": "5.9.2",
-    "typescript": "2.9.1"
+    "@types/ejs": "3.0.0",
+    "@types/lodash.groupby": "4.6.6",
+    "@types/lodash.merge": "4.6.6",
+    "@types/lodash.set": "4.3.6",
+    "@types/lodash.upperfirst": "4.3.6",
+    "@types/node": "8.10.59",
+    "tslint": "6.0.0",
+    "tslint-config-airbnb": "5.11.2",
+    "typescript": "3.7.5"
   }
 }
